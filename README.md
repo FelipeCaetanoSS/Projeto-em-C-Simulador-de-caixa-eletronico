@@ -1,31 +1,70 @@
-📊 Projeto: Simulador de Caixa Eletrônico (Banco
-Simplificado)
-🏦 Descrição:
-Crie um programa que simula um caixa eletrônico. O usuário pode:
-● Ver saldo
-● Sacar dinheiro
-● Depositar dinheiro
-● Ver extrato (opcional)
-● Sair
-✅ Conceitos utilizados:
-● if, else, else if
-● switch (para o menu)
-● while (para manter o sistema em execução até o usuário sair)
-● for (para, por exemplo, mostrar um extrato com últimas transações)
-● Variáveis para representar: saldo, valores de saque, depósitos, etc.
-🧠 Quebrem a cabeça:
-● Controlar os limites de saque (não permitir sacar mais do que o saldo)
-● Validar entradas (não aceitar depósitos ou saques negativos)
-● Manter o loop do menu e suas ações funcionando corretamente
-● Simular um “extrato” com uma lista simples de últimas ações (pode ser só 5
-últimas, por exemplo)
-● Usar switch de forma limpa e organizada para o menu
-🧩 Desafio:
-● Pedir uma “senha” antes de liberar o menu
-● Implementar múltiplas contas (com login via ID simples)
-● Adicionar juros fictícios em depósitos
-● Mostrar data/hora (fixa, simulada) nas transações
-🎯 Resultado final:
-Um programa funcional que simula um caixa eletrônico, usando lógica condicional,
-repetição e organização de código. É um projeto que exige atenção ao fluxo de dados,
-boas validações e clareza no uso de estruturas de decisão.
+# Simulador de Caixa Eletrônico
+
+## Descrição
+
+Simulador de um caixa eletrônico (banco simplificado) desenvolvido para praticar lógica de programação. O usuário pode:
+
+- Ver saldo
+- Sacar dinheiro
+- Depositar dinheiro
+- Ver extrato (últimas transações)
+- Sair do sistema
+
+---
+
+## Funcionalidades
+
+- Verificar saldo disponível
+- Realizar saques (com validação de saldo)
+- Realizar depósitos (com validação de valor)
+- Consultar extrato das últimas transações
+- Sistema de menu interativo
+- Encerrar o sistema de forma segura
+
+---
+
+## Tecnologias e Conceitos
+
+- Estruturas condicionais (`if`, `else if`, `else`)
+- Estrutura de seleção (`switch`) para navegação no menu
+- Estruturas de repetição (`while` e `for`)
+- Controle de variáveis como saldo, valores de saque, depósitos e histórico
+- Validação de dados (ex.: impedir saques e depósitos com valores inválidos)
+
+---
+
+## Desafios Extras (Opcionais)
+
+- Implementar senha de acesso antes de liberar o menu
+- Criar múltiplas contas com login via ID simples
+- Adicionar juros fictícios em depósitos
+- Exibir data e hora (fixas ou simuladas) nas transações
+
+---
+
+## Desafios Técnicos
+
+- Controle de limites de saque (não permitir sacar mais do que o saldo disponível)
+- Validação de entradas (impedir valores negativos ou nulos)
+- Manter o loop contínuo do menu até que o usuário opte por sair
+- Simular extrato com histórico das últimas transações (exemplo: as 5 mais recentes)
+- Organizar o código e utilizar o `switch` de forma clara e eficiente
+
+---
+
+## Objetivo
+
+Criar um programa funcional que simula um caixa eletrônico, aplicando:
+
+- Lógica condicional
+- Estruturas de repetição
+- Boas práticas de validação de dados
+- Organização e clareza no código
+
+Este projeto é indicado para quem está aprendendo lógica de programação e deseja praticar controle de fluxo, validações e construção de menus interativos no terminal.
+
+---
+
+## Licença
+
+Este projeto é de livre uso para fins educacionais.
