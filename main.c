@@ -28,7 +28,9 @@ int main() {
     int i;
     int menu;
     float saque, deposito;
-
+    int dia = 03;
+    int mes = 06;
+    int ano = 2025;
     float valores[50];
     char tipo[50];
     int p = 0;
@@ -58,7 +60,7 @@ int main() {
         }
     }
 
-    printf("\n\tBEM VINDO AO BANCO, %s!\n\n", contas[logado].id);
+        printf("\n\t BEM VINDO AO BANCO, %s!\n\n", contas[logado].id);
 
     while (1) {
         printf("\t=========== MENU ===========\n");
@@ -79,7 +81,8 @@ int main() {
             case 2:
                 printf("\n\tSALDO!!\n");
                 printf("Seu saldo total é: R$%.2f\n", contas[logado].saldo);
-                printf("\n--------------------------------------\n\n");
+                printf("\n\nData: %02d/%02d/%d  17:30\n\n", dia,mes,ano);
+                printf("--------------------------------------\n\n");
                 break;
 
             case 3:
@@ -97,7 +100,8 @@ int main() {
                 } else {
                     printf("Valor inválido ou saldo insuficiente.\n");
                 }
-                printf("\n--------------------------------------\n\n");
+                printf("\n\nData: %02d/%02d/%d  17:30\n\n", dia,mes,ano);
+                printf("--------------------------------------\n\n");
                 break;
 
             case 4:
@@ -112,10 +116,11 @@ int main() {
                     p++;
                     printf("\nVocê depositou R$%.2f na sua conta.\n\n", deposito);
                     printf("Saldo atual:R$%.2f. \n", contas[logado].saldo);
+                    printf("\n\nData: %02d/%02d/%d  17:30\n\n", dia,mes,ano);
                 } else {
                     printf("Valor inválido.\n");
                 }
-                printf("\n--------------------------------------\n\n");
+                printf("--------------------------------------\n\n");
                 break;
 
             case 5:
@@ -125,13 +130,13 @@ int main() {
                 } else {
                     for (int i = 0; i < p; i++) {
                         if (tipo[i] == 'D') {
-                            printf("Depósito:  +R$%.2f\n", valores[i]);
+                            printf("Depósito:  +R$%.2f %02d/%02d/%d  17:30\n\n", valores[i], dia,mes,ano);
                         } else if (tipo[i] == 'S') {
-                            printf("Saque:  -R$%.2f\n", valores[i]);
+                            printf("Saque:  -R$%.2f %02d/%02d/%d  17:30\n\n", valores[i], dia,mes,ano);
                         }
                     }
                 }
-                printf("Saldo atual: R$%.2f\n", contas[logado].saldo);
+                printf("\nSaldo atual: R$%.2f\n", contas[logado].saldo);
                 printf("\n--------------------------------------\n\n");
                 break;
 
