@@ -1,79 +1,143 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <locale.h>
 
-int main()
-{
+#define NUM_CONTAS 3
+
+typedef struct {
+    char id[10];
+    char senha[5];
+    float saldo;
+} Conta;
+
+int main() {
     setlocale(LC_ALL, "Portuguese");
 
+    Conta contas[NUM_CONTAS] = {
+        {"Mateus", "1234", 5000.00},
+        {"Felipe", "1111", 3000.00},
+        {"Antonio", "5375", 100000.00}
+    };
+
+    char idDigitado[10];
+    char senhaDigitada[5];
+    int tentativas = 0;
+    const int MAX_TENTATIVAS = 3;
+    int logado = -1;
+    int i;
     int menu;
-    float saldo = 0;
     float saque, deposito;
 
-    printf("\t     BEM VINDO AO BANCO!!\n\n");
+    float valores[50];
+    char tipo[50];
+    int p = 0;
 
-    while(menu = 1){
-    printf("\t=========== MENU ===========\n");
-    printf("\t-------- SALDO = 2 ---------\n");
-    printf("\t---- SACAR DINHEIRO = 3 ----\n");
-    printf("\t-- DEPOSITAR DINHEIRO = 4 --\n");
-    printf("\t------ EXTRATO = 5 ---------\n");
-    printf("\t--------- SAIR = 0 ---------\n");
+    // Login
+    while (tentativas < MAX_TENTATIVAS && logado == -1) {
+        printf("Digite o nome do seu usúario: ");
+        scanf("%9s", idDigitado);
 
-    printf("\nDigite o número para continuar:\n");
-    scanf("%i", &menu);
+        printf("Digite sua senha: ");
+        scanf("%4s", senhaDigitada);
 
-    switch (menu){
-    case 0:
-        printf("\n--------------------------------------\n");
-        printf("Encerrando Programa...\n\n\n\n");
-            return 0;
-    case 2:
-        printf("\n\tSALDO!!\n\n");
-        printf("Seu saldo total é:\n", saldo);
-        printf("%.2f\n", saldo);
-        printf("\n--------------------------------------\n\n");
-            break;
-    case 3:
-        printf("\n\tSAQUE DE DINHEIRO!!\n\n");
-        printf("Qual valor deseja retirar?\n");
-        scanf("%f", &saque);
-        if (saque > 0){
-            if (saque <= saldo){
-            saldo -= saque;
-        printf("Você acaba de retirar %.2f da sua conta.", saque);
-        } else{
-        printf("O valor não está disponível para resgate.");
+        for (i = 0; i < NUM_CONTAS; i++) {
+            if (strcasecmp(idDigitado, contas[i].id) == 0 && strcmp(senhaDigitada, contas[i].senha) == 0) {
+                logado = i;
+                break;
+            }
         }
-        } else{
-        printf("\nO valor não pode números negativos.");
-        }
-        printf("\n--------------------------------------\n\n");
-            break;
-    case 4:
-        printf("\n\tDEPOSITO DE DINHEIRO!!\n\n");
-        printf("Qual valor deseja depositar?\n");
-        scanf("%f", &deposito);
 
-        if (deposito > 0){
-            saldo += deposito;
-        printf("\nSUCESSO!!!\n");
-        printf("Você acaba de depositar %.2f em sua conta.\n", deposito);
-        } else{
-        printf("\nO valor não pode números negativos.");
+        if (logado == -1) {
+            tentativas++;
+            if (tentativas >= MAX_TENTATIVAS) {
+                printf("Número máximo de tentativas excedido. Encerrando o programa.\n");
+                return 0;
+            }
+            printf("nome de usúario ou senha incorretos! Tentativas restantes: %i.\n", MAX_TENTATIVAS - tentativas);
         }
-        printf("\n--------------------------------------\n\n");
-            break;
-    case 5:
-        printf("\n\tEXTRATO!!\n\n");
+    }
 
-        printf("\n--------------------------------------\n\n");
-            break;
-   default:
-        printf("\nOPÇÃO INVÁLIDA, TENTE NOVAMENTE.\n");
-        printf("\n--------------------------------------\n\n");
-            break;
-}
+    printf("\n\tBEM VINDO AO BANCO, %s!\n\n", contas[logado].id);
+
+    while (1) {
+        printf("\t=========== MENU ===========\n");
+        printf("\t-------- SALDO = 2 ---------\n");
+        printf("\t---- SACAR DINHEIRO = 3 ----\n");
+        printf("\t-- DEPOSITAR DINHEIRO = 4 --\n");
+        printf("\t------ EXTRATO = 5 ---------\n");
+        printf("\t--------- SAIR = 0 ---------\n");
+
+        printf("\nDigite o número para continuar:\n");
+        scanf("%i", &menu);
+
+        switch (menu) {
+            case 0:
+                printf("\nEncerrando Programa...\n\n");
+                return 0;
+
+            case 2:
+                printf("\n\tSALDO!!\n");
+                printf("Seu saldo total é: R$%.2f\n", contas[logado].saldo);
+                printf("\n--------------------------------------\n\n");
+                break;
+
+            case 3:
+                printf("\n\tSAQUE DE DINHEIRO!!\n\n");
+                printf("Qual valor deseja retirar?\n");
+                scanf("%f", &saque);
+
+                if (saque > 0 && saque <= contas[logado].saldo) {
+                    contas[logado].saldo -= saque;
+                    valores[p] = saque;
+                    tipo[p] = 'S';
+                    p++;
+                    printf("\nVocê sacou R$%.2f da sua conta.\n\n", saque);
+                    printf("Saldo atual:R$%.2f.\n", contas[logado].saldo);
+                } else {
+                    printf("Valor inválido ou saldo insuficiente.\n");
+                }
+                printf("\n--------------------------------------\n\n");
+                break;
+
+            case 4:
+                printf("\n\tDEPÓSITO DE DINHEIRO!!\n\n");
+                printf("Qual valor deseja depositar?\n");
+                scanf("%f", &deposito);
+
+                if (deposito > 0) {
+                    contas[logado].saldo += deposito;
+                    valores[p] = deposito;
+                    tipo[p] = 'D';
+                    p++;
+                    printf("\nVocê depositou R$%.2f na sua conta.\n\n", deposito);
+                    printf("Saldo atual:R$%.2f. \n", contas[logado].saldo);
+                } else {
+                    printf("Valor inválido.\n");
+                }
+                printf("\n--------------------------------------\n\n");
+                break;
+
+            case 5:
+                printf("\n\tEXTRATO!!\n\n");
+                if (p == 0) {
+                    printf("Nenhuma movimentação registrada.\n");
+                } else {
+                    for (int i = 0; i < p; i++) {
+                        if (tipo[i] == 'D') {
+                            printf("Depósito:  +R$%.2f\n", valores[i]);
+                        } else if (tipo[i] == 'S') {
+                            printf("Saque:  -R$%.2f\n", valores[i]);
+                        }
+                    }
+                }
+                printf("Saldo atual: R$%.2f\n", contas[logado].saldo);
+                printf("\n--------------------------------------\n\n");
+                break;
+
+            default:
+                printf("Opção inválida. Tente novamente.\n\n");
+        }
     }
 
     return 0;
